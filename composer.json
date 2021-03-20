@@ -9,6 +9,11 @@
         {
             "name": "Maurits van der Schee",
             "email": "m.vanderschee@leaseweb.com"
+        },
+        {
+            "name": "Sergey Gripinskiy",
+            "email": "web-architect@mail.ru",
+            "role": "Contributor"
         }
     ],
     "require": {
@@ -20,9 +25,10 @@
         "phpunit/phpunit": "~4.0"
     },
     "autoload": {
-        "psr-0": { "Lsw\\MemcacheBundle": "" }
+        "psr-4": {
+            "Lsw\\MemcacheBundle\\": ""
+        }
     },
-    "target-dir": "Lsw/MemcacheBundle",
     "extra": {
         "branch-alias": {
             "dev-master": "1.1.x-dev"

@@ -1,3 +1,11 @@
+# Fork description
+
+This fork was created for these reasons:
+1. Allow passing environment variables in the bundle config.
+2. Comply with PSR-4 autoloading standard.
+   
+It's **not maintained** and barely alive only for some legacy projects.
+
 ## Deprecated
 
 This repository is no longer being actively maintained. We encourage you to not use this code.
