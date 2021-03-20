@@ -1,34 +1,36 @@
 <?php
-namespace Lsw\MemcacheBundle\Tests\Cache;
+
+namespace Cache;
 
 use Lsw\MemcacheBundle\Cache\AntiDogPileMemcache;
+use PHPUnit_Framework_TestCase;
 
-require_once "../../Cache/LoggingMemcacheInterface.php";
-require_once "../../Cache/MemcacheInterface.php";
-require_once "../../Cache/LoggingMemcache.php";
-require_once "../../Cache/AntiDogPileMemcache.php";
-
-class DogPileTest //extends \PHPUnit_Framework_TestCase
+class DogPileTest extends PHPUnit_Framework_TestCase
 {
     public function testDogPile()
     {
-        for ($t=1; $t<3; $t++) {
+        /**
+         * Suppress deprecated "Non-static method ... should not be called statically"
+         */
+        $this->iniSet('error_reporting', ini_get('error_reporting') & ~E_NOTICE);
+
+        for ($t = 1; $t < 3; $t++) {
             $pid = pcntl_fork();
             if ($pid == -1) {
-                 die('could not fork');
+                die('could not fork');
             }
-            if ($pid==0) {
+            if ($pid == 0) {
                 break;
             }
         }
 
         $c = 10;
-        $m = new AntiDogPileMemcache(false,array());
-        $m->addServer('localhost', 11212, 0);
-        if ($t==1) {
+        $m = new AntiDogPileMemcache(false);
+        $m->addServer('localhost');
+        if ($t == 1) {
             echo "THREAD | SECOND | STATUS\n";
         }
-        for ($i=0; $i<$c; $i++) {
+        for ($i = 0; $i < $c; $i++) {
             sleep(1);
             if (false === ($v = $m->getAdp('key'))) {
                 echo sprintf("%6s | %6s | %s\n", $t, $i, "STALE!");
@@ -43,7 +45,3 @@ class DogPileTest //extends \PHPUnit_Framework_TestCase
         sleep(3);
     }
 }
-
-$t = new DogPileTest();
-$t->testDogPile();
-
