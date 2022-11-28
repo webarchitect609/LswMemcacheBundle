@@ -14,7 +14,7 @@ use Lsw\MemcacheBundle\Cache\LoggingMemcacheInterface;
  *
  * @author Maurits van der Schee <m.vanderschee@leaseweb.com>
  */
-class MemcacheDataCollector extends DataCollector
+abstract class MemcacheDataCollector extends DataCollector
 {
     private $pools;
     private $options;
