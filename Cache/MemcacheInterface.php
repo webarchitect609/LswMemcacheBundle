@@ -19,7 +19,19 @@ interface MemcacheInterface {
     public function decrement($key,$value=1,$defval=0,$exptime=0);
     public function close();
     public function flush($delay=0);
-    public function addServer($host,$tcpPort=11211,$udpPort=0,$persistent=true,$weight=1,$timeout=1,$retryInterval=15,$status=true);
+
+    public function addServer(
+        $host,
+        $tcpPort = 11211,
+        $udpPort = 0,
+        $persistent = true,
+        $weight = 1,
+        $timeout = 1,
+        $retryInterval = 15,
+        $status = true,
+        callable $failure_callback = null,
+        $timeoutms = null
+    );
     public function connect($host,$tcpPort=11211,$udpPort=0,$persistent=true,$weight=1,$timeout=1,$retryInterval=15);
     public function findServer($key);
 }

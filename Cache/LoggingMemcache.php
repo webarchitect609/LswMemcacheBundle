@@ -277,7 +277,19 @@ class LoggingMemcache extends \MemcachePool implements MemcacheInterface, Loggin
         }
         return $result;
     }
-    public function addServer($host,$tcpPort=11211,$udpPort=0,$persistent=true,$weight=1,$timeout=1,$retryInterval=15,$status=true) {
+
+    public function addServer(
+        $host,
+        $tcpPort = 11211,
+        $udpPort = 0,
+        $persistent = true,
+        $weight = 1,
+        $timeout = 1,
+        $retryInterval = 15,
+        $status = true,
+        callable $failure_callback = null,
+        $timeoutms = null
+    ) {
         if ($this->logging) { 
             $start = microtime(true);
             $name = 'addServer';
