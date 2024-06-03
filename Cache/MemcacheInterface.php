@@ -1,24 +1,42 @@
 <?php
+
 namespace Lsw\MemcacheBundle\Cache;
 
-interface MemcacheInterface {
-    public function setFailureCallback($failureCallback);
-    public function getServerStatus($host,$port=11211);
-    public function getVersion();
-    public function add($key,$var=null,$flag=0,$exptime=0);
-    public function set($key,$var=null,$flag=0,$exptime=0);
-    public function replace($key,$var=null,$flag=0,$exptime=0);
-    public function cas($key,$var=null,$flag=0,$exptime=0,$cas=0);
-    public function prepend($key,$var=null,$flag=0,$exptime=0);
-    public function get($key,&$flags=null,&$cas=null);
-    public function getStats($type='',$slabid=0,$limit=100);
-    public function getExtendedStats($type='',$slabid=0,$limit=100);
-    public function setCompressThreshold($threshold,$minSavings=0.2);
-    public function delete($key,$exptime=0);
-    public function increment($key,$value=1,$defval=0,$exptime=0);
-    public function decrement($key,$value=1,$defval=0,$exptime=0);
-    public function close();
-    public function flush($delay=0);
+interface MemcacheInterface
+{
+    public function setFailureCallback(?callable $failureCallback): bool;
+
+    public function getServerStatus(string $host, int $port = 11211): int|bool;
+
+    public function getVersion(): string|bool;
+
+    public function add(array|string $key, $var = null, int $flag = 0, int $exptime = 0, int $cas = 0): bool;
+
+    public function set(array|string $key, $var = null, int $flag = 0, int $exptime = 0, int $cas = 0): bool;
+
+    public function replace(array|string $key, $var = null, int $flag = 0, int $exptime = 0, int $cas = 0): bool;
+
+    public function cas(array|string $key, $var = null, int $flag = 0, int $exptime = 0, int $cas = 0): bool;
+
+    public function prepend(array|string $key, $var = null, int $flag = 0, int $exptime = 0, int $cas = 0): bool;
+
+    public function get(array|string $key, &$flags = null, &$cas = null): mixed;
+
+    public function getStats(string $type = '', int $slabid = 0, int $limit = 100): array|bool;
+
+    public function getExtendedStats(string $type = '', int $slabid = 0, int $limit = 100): array|bool;
+
+    public function setCompressThreshold(int $threshold, float $minSavings = 0.2): bool;
+
+    public function delete(array|string $key, int $exptime = 0): array|bool;
+
+    public function increment(array|string $key, int $value = 1, int $defval = 0, int $exptime = 0): array|int|bool;
+
+    public function decrement(array|string $key, int $value = 1, int $defval = 0, int $exptime = 0): array|int|bool;
+
+    public function close(): bool;
+
+    public function flush(int $delay = 0): bool;
 
     public function addServer(
         $host,
@@ -28,10 +46,18 @@ interface MemcacheInterface {
         $weight = 1,
         $timeout = 1,
         $retryInterval = 15,
-        $status = true,
-        callable $failure_callback = null,
-        $timeoutms = null
+        $status = true
+    ): bool;
+
+    public function connect(
+        $host,
+        $tcpPort = 11211,
+        $udpPort = 0,
+        $persistent = true,
+        $weight = 1,
+        $timeout = 1,
+        $retryInterval = 15
     );
-    public function connect($host,$tcpPort=11211,$udpPort=0,$persistent=true,$weight=1,$timeout=1,$retryInterval=15);
-    public function findServer($key);
+
+    public function findServer(string $key): string|bool;
 }
