@@ -113,8 +113,10 @@ class MemcachePool {
     }
 	
 	//proto bool MemcachePool::connect(string host [, int tcp_port [, int udp_port [, bool persistent [, int weight [, double timeout [, int retry_interval] ] ] ] ] ])
-	
-	public function connect($host,$tcpPort=11211,$udpPort=0,$persistent=true,$weight=1,$timeout=1,$retryInterval=15) {}
+
+    public function connect($host, $tcpPort = 11211, $timeout = 1)
+    {
+    }
 	
 	//proto string MemcachePool::findServer(string key)
 	

@@ -3,6 +3,7 @@ namespace Lsw\MemcacheBundle\Cache;
 
 class LoggingMemcache extends \MemcachePool implements MemcacheInterface, LoggingMemcacheInterface {
     public function __construct($logging) {
+        parent::__construct();
         $this->calls = array();
         $this->logging = $logging;
     }
@@ -13,7 +14,7 @@ class LoggingMemcache extends \MemcachePool implements MemcacheInterface, Loggin
     }
     private function logCall($start, $result) {
         $time = microtime(true) - $start;
-        $this->calls[] = (object) compact('start', 'time', 'name', 'arguments', 'result');
+        $this->calls[] = (object) compact('start', 'time', 'result');
         return $result;
     }
     public function setFailureCallback($failureCallback) {
@@ -281,7 +282,6 @@ class LoggingMemcache extends \MemcachePool implements MemcacheInterface, Loggin
     public function addServer(
         $host,
         $tcpPort = 11211,
-        $udpPort = 0,
         $persistent = true,
         $weight = 1,
         $timeout = 1,
@@ -293,30 +293,33 @@ class LoggingMemcache extends \MemcachePool implements MemcacheInterface, Loggin
         if ($this->logging) { 
             $start = microtime(true);
             $name = 'addServer';
-            $arguments = array($host,$tcpPort,$udpPort,$persistent,$weight,$timeout,$retryInterval,$status);
+            $arguments = array($host,$tcpPort,$persistent,$weight,$timeout,$retryInterval,$status);
         }
-        list($_host,$_tcpPort,$_udpPort,$_persistent,$_weight,$_timeout,$_retryInterval,$_status) = array($host,$tcpPort,$udpPort,$persistent,$weight,$timeout,$retryInterval,$status);
-        $result = parent::addServer($_host,$_tcpPort,$_udpPort,$_persistent,$_weight,$_timeout,$_retryInterval,$_status);
-        list($host,$tcpPort,$udpPort,$persistent,$weight,$timeout,$retryInterval,$status) = array($_host,$_tcpPort,$_udpPort,$_persistent,$_weight,$_timeout,$_retryInterval,$_status);
+        list($_host,$_tcpPort,$_persistent,$_weight,$_timeout,$_retryInterval,$_status) = array($host,$tcpPort,$persistent,$weight,$timeout,$retryInterval,$status);
+        $result = parent::addServer($_host,$_tcpPort,$_persistent,$_weight,$_timeout,$_retryInterval,$_status);
+        list($host,$tcpPort,$persistent,$weight,$timeout,$retryInterval,$status) = array($_host,$_tcpPort,$_persistent,$_weight,$_timeout,$_retryInterval,$_status);
         if ($this->logging) {
             $time = microtime(true) - $start;
             $this->calls[] = (object) compact('start', 'time', 'name', 'arguments', 'result');
         }
         return $result;
     }
-    public function connect($host,$tcpPort=11211,$udpPort=0,$persistent=true,$weight=1,$timeout=1,$retryInterval=15) {
-        if ($this->logging) { 
+
+    public function connect($host, $tcpPort = 11211, $timeout = 1)
+    {
+        if ($this->logging) {
             $start = microtime(true);
             $name = 'connect';
-            $arguments = array($host,$tcpPort,$udpPort,$persistent,$weight,$timeout,$retryInterval);
+            $arguments = array($host, $tcpPort, $timeout);
         }
-        list($_host,$_tcpPort,$_udpPort,$_persistent,$_weight,$_timeout,$_retryInterval) = array($host,$tcpPort,$udpPort,$persistent,$weight,$timeout,$retryInterval);
-        $result = parent::connect($_host,$_tcpPort,$_udpPort,$_persistent,$_weight,$_timeout,$_retryInterval);
-        list($host,$tcpPort,$udpPort,$persistent,$weight,$timeout,$retryInterval) = array($_host,$_tcpPort,$_udpPort,$_persistent,$_weight,$_timeout,$_retryInterval);
+        list($_host, $_tcpPort, $_timeout) = array($host, $tcpPort, $timeout);
+        $result = parent::connect($_host, $_tcpPort, $_timeout);
+        list($host, $tcpPort, $timeout) = array($_host, $_tcpPort, $_timeout);
         if ($this->logging) {
             $time = microtime(true) - $start;
-            $this->calls[] = (object) compact('start', 'time', 'name', 'arguments', 'result');
+            $this->calls[] = (object)compact('start', 'time', 'name', 'arguments', 'result');
         }
+
         return $result;
     }
     public function findServer($key) {

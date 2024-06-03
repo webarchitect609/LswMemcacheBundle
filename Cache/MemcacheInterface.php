@@ -23,7 +23,6 @@ interface MemcacheInterface {
     public function addServer(
         $host,
         $tcpPort = 11211,
-        $udpPort = 0,
         $persistent = true,
         $weight = 1,
         $timeout = 1,
@@ -32,6 +31,6 @@ interface MemcacheInterface {
         callable $failure_callback = null,
         $timeoutms = null
     );
-    public function connect($host,$tcpPort=11211,$udpPort=0,$persistent=true,$weight=1,$timeout=1,$retryInterval=15);
+    public function connect($host, $tcpPort=11211, $timeout=1);
     public function findServer($key);
 }
