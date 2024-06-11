@@ -96,12 +96,11 @@ class MemcachePool {
 	
 	//public function debug($onoff) {}
 	
-	//proto bool MemcachePool::addServer(string host [, int tcp_port [, int udp_port [, bool persistent [, int weight [, double timeout [, int retry_interval [, bool status] ] ] ] ])
+	//proto bool MemcachePool::addServer(string host [, int tcp_port [, bool persistent [, int weight [, double timeout [, int retry_interval [, bool status [, callback failure_callback [, int timeoutms ] ] ] ] ] ])
 
     public function addServer(
         $host,
         $tcpPort = 11211,
-        $udpPort = 0,
         $persistent = true,
         $weight = 1,
         $timeout = 1,
@@ -112,7 +111,7 @@ class MemcachePool {
     ) {
     }
 	
-	//proto bool MemcachePool::connect(string host [, int tcp_port [, int udp_port [, bool persistent [, int weight [, double timeout [, int retry_interval] ] ] ] ] ])
+	//proto bool MemcachePool::connect(string host [, int tcp_port [, bool persistent [, double timeout ] ] ])
 
     public function connect($host, $tcpPort = 11211, $timeout = 1)
     {
