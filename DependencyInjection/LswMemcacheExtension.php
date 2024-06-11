@@ -201,7 +201,6 @@ class LswMemcacheExtension extends Extension
             $server = array(
                 $s['host'],
                 $s['tcp_port'],
-                $s['udp_port'],
                 $s['persistent'],
                 $s['weight'],
                 $s['timeout'],
