@@ -4,13 +4,14 @@ namespace Lsw\MemcacheBundle\Tests\Cache;
 
 
 use Lsw\MemcacheBundle\Cache\LoggingMemcache;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Testing the LoggingMemcache Class.
  *
  * @author Julius Beckmann <github@h4cc.de>
  */
-class LoggingMemcacheTest extends \PHPUnit_Framework_TestCase
+class LoggingMemcacheTest extends TestCase
 {
     public function testConstructAndInterfaces()
     {
@@ -23,7 +24,8 @@ class LoggingMemcacheTest extends \PHPUnit_Framework_TestCase
 
     public function testOpenPort()
     {
-    	fsockopen('127.0.0.1', 11211, $errno, $errstr, 0.1);
+        $resource = fsockopen('127.0.0.1', 11211, $errno, $errstr, 0.1);
+        self::assertIsResource($resource);
     } 
 	
 	public function testGet()

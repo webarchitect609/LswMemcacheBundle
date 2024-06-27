@@ -2,12 +2,14 @@
 
 namespace Lsw\MemcacheBundle\Tests\Cache;
 
+use PHPUnit\Framework\TestCase;
+
 /**
  * Testing the MemcacheInterface Switch.
  *
  * @author Julius Beckmann <github@h4cc.de>
  */
-class MemcacheInterfaceTest extends \PHPUnit_Framework_TestCase
+class MemcacheInterfaceTest extends TestCase
 {
     public function testInterfaceWorks()
     {
