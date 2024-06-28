@@ -23,7 +23,7 @@ interface MemcacheInterface {
     public function addServer(
         $host,
         $tcpPort = 11211,
-        $udpPort = 11211,
+        $udpPort = 0,
         $persistent = true,
         $weight = 1,
         $timeout = 1,

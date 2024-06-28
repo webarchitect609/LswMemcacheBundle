@@ -348,6 +348,7 @@ class LoggingMemcache extends \MemcachePool implements MemcacheInterface, Loggin
     public function addServer(
         $host,
         $tcpPort = 11211,
+        $udpPort = 0,
         $persistent = true,
         $weight = 1,
         $timeout = 1,
@@ -359,27 +360,11 @@ class LoggingMemcache extends \MemcachePool implements MemcacheInterface, Loggin
         if ($this->logging) {
             $start = microtime(true);
             $name = 'addServer';
-            $arguments = [$host, $tcpPort, $persistent, $weight, $timeout, $retryInterval, $status];
+            $arguments = array($host,$tcpPort,$udpPort,$persistent,$weight,$timeout,$retryInterval,$status);
         }
-        [$_host, $_tcpPort, $_persistent, $_weight, $_timeout, $_retryInterval, $_status] = [
-            $host,
-            $tcpPort,
-            $persistent,
-            $weight,
-            $timeout,
-            $retryInterval,
-            $status,
-        ];
-        $result = parent::addServer($_host, $_tcpPort, $_persistent, $_weight, $_timeout, $_retryInterval, $_status);
-        [$host, $tcpPort, $persistent, $weight, $timeout, $retryInterval, $status] = [
-            $_host,
-            $_tcpPort,
-            $_persistent,
-            $_weight,
-            $_timeout,
-            $_retryInterval,
-            $_status,
-        ];
+        list($_host,$_tcpPort,$_udpPort,$_persistent,$_weight,$_timeout,$_retryInterval,$_status) = array($host,$tcpPort,$udpPort,$persistent,$weight,$timeout,$retryInterval,$status);
+        $result = parent::addServer($_host,$_tcpPort,$_udpPort,$_persistent,$_weight,$_timeout,$_retryInterval,$_status);
+        list($host,$tcpPort,$udpPort,$persistent,$weight,$timeout,$retryInterval,$status) = array($_host,$_tcpPort,$_udpPort,$_persistent,$_weight,$_timeout,$_retryInterval,$_status);
         if ($this->logging) {
             $time = microtime(true) - $start;
             $this->calls[] = (object)compact('start', 'time', 'name', 'arguments', 'result');
@@ -388,17 +373,6 @@ class LoggingMemcache extends \MemcachePool implements MemcacheInterface, Loggin
         return $result;
     }
 
-    /*
-     * MemcachePool::connect(
-     * $host, 
-     * $tcp_port = &lt;default&gt;, 
-     * $udp_port = &lt;default&gt;, 
-     * $persistent = &lt;default&gt;, 
-     * $weight = &lt;default&gt;, 
-     * $timeout = &lt;default&gt;, 
-     * $retry_interval = &lt;default&gt;)
-     */
-    
     public function connect($host,$tcpPort=11211,$udpPort=0,$persistent=true,$weight=1,$timeout=1,$retryInterval=15)
     {
         if ($this->logging) {
