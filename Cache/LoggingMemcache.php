@@ -389,7 +389,7 @@ class LoggingMemcache extends \MemcachePool implements MemcacheInterface, Loggin
         return $result;
     }
 
-    public function findServer($key)
+    public function findServer($key): string|bool
     {
         if ($this->logging) {
             $start = microtime(true);
