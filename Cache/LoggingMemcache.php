@@ -86,7 +86,7 @@ class LoggingMemcache extends \MemcachePool implements MemcacheInterface, Loggin
         return $result;
     }
 
-    public function add($key, $var = null, $flag = 0, $exptime = 0, int $cas = 0): bool
+    public function add(array|string $key, $var = null, $flag = 0, $exptime = 0, int $cas = 0): bool
     {
         if ($this->logging) {
             $start = microtime(true);
@@ -104,7 +104,7 @@ class LoggingMemcache extends \MemcachePool implements MemcacheInterface, Loggin
         return $result;
     }
 
-    public function set($key, $var = null, $flag = 0, $exptime = 0, int $cas = 0): bool
+    public function set(array|string $key, $var = null, $flag = 0, $exptime = 0, int $cas = 0): bool
     {
         if ($this->logging) {
             $start = microtime(true);
@@ -122,7 +122,7 @@ class LoggingMemcache extends \MemcachePool implements MemcacheInterface, Loggin
         return $result;
     }
 
-    public function replace($key, $var = null, $flag = 0, $exptime = 0)
+    public function replace(array|string $key, $var = null, $flag = 0, $exptime = 0, int $cas = 0): bool
     {
         if ($this->logging) {
             $start = microtime(true);
@@ -140,7 +140,7 @@ class LoggingMemcache extends \MemcachePool implements MemcacheInterface, Loggin
         return $result;
     }
 
-    public function cas($key, $var = null, $flag = 0, $exptime = 0, $cas = 0)
+    public function cas(array|string $key, $var = null, $flag = 0, $exptime = 0, $cas = 0): bool
     {
         if ($this->logging) {
             $start = microtime(true);
@@ -158,7 +158,7 @@ class LoggingMemcache extends \MemcachePool implements MemcacheInterface, Loggin
         return $result;
     }
 
-    public function prepend($key, $var = null, $flag = 0, $exptime = 0)
+    public function prepend(array|string $key, $var = null, $flag = 0, $exptime = 0, int $cas=0): bool
     {
         if ($this->logging) {
             $start = microtime(true);
@@ -176,7 +176,7 @@ class LoggingMemcache extends \MemcachePool implements MemcacheInterface, Loggin
         return $result;
     }
 
-    public function get($key, &$flags = null, &$cas = null)
+    public function get(array|string $key, &$flags = null, &$cas = null): mixed
     {
         if ($this->logging) {
             $start = microtime(true);
@@ -194,7 +194,7 @@ class LoggingMemcache extends \MemcachePool implements MemcacheInterface, Loggin
         return $result;
     }
 
-    public function getStats($type = '', $slabid = 0, $limit = 100)
+    public function getStats(string $type = '', int $slabid = 0, int $limit = 100): array|bool
     {
         if ($this->logging) {
             $start = microtime(true);
@@ -216,7 +216,7 @@ class LoggingMemcache extends \MemcachePool implements MemcacheInterface, Loggin
         return $result;
     }
 
-    public function getExtendedStats($type = '', $slabid = 0, $limit = 100)
+    public function getExtendedStats(string $type = '', int $slabid = 0, int $limit = 100): array|bool
     {
         if ($this->logging) {
             $start = microtime(true);
@@ -238,7 +238,7 @@ class LoggingMemcache extends \MemcachePool implements MemcacheInterface, Loggin
         return $result;
     }
 
-    public function setCompressThreshold($threshold, $minSavings = 0.2)
+    public function setCompressThreshold(int $threshold, float $minSavings = 0.2): bool
     {
         if ($this->logging) {
             $start = microtime(true);
@@ -256,7 +256,7 @@ class LoggingMemcache extends \MemcachePool implements MemcacheInterface, Loggin
         return $result;
     }
 
-    public function delete($key, $exptime = 0)
+    public function delete(array|string $key, $exptime = 0): array|bool
     {
         if ($this->logging) {
             $start = microtime(true);
@@ -274,7 +274,7 @@ class LoggingMemcache extends \MemcachePool implements MemcacheInterface, Loggin
         return $result;
     }
 
-    public function increment($key, $value = 1, $defval = 0, $exptime = 0)
+    public function increment(array|string $key, int $value = 1, int $defval = 0, int $exptime = 0): array|int|bool
     {
         if ($this->logging) {
             $start = microtime(true);
@@ -292,7 +292,7 @@ class LoggingMemcache extends \MemcachePool implements MemcacheInterface, Loggin
         return $result;
     }
 
-    public function decrement($key, $value = 1, $defval = 0, $exptime = 0)
+    public function decrement(array|string $key, int $value = 1, int $defval = 0, int $exptime = 0): array|int|bool
     {
         if ($this->logging) {
             $start = microtime(true);
@@ -310,7 +310,7 @@ class LoggingMemcache extends \MemcachePool implements MemcacheInterface, Loggin
         return $result;
     }
 
-    public function close()
+    public function close(): bool
     {
         if ($this->logging) {
             $start = microtime(true);
@@ -327,7 +327,7 @@ class LoggingMemcache extends \MemcachePool implements MemcacheInterface, Loggin
         return $result;
     }
 
-    public function flush($delay = 0)
+    public function flush(int $delay = 0): bool
     {
         if ($this->logging) {
             $start = microtime(true);
