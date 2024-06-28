@@ -30,6 +30,6 @@ interface MemcacheInterface {
         $retryInterval = 15,
         $status = true
     );
-    public function connect($host, $tcpPort=11211, $timeout=1);
+    public function connect($host,$tcpPort=11211,$udpPort=0,$persistent=true,$weight=1,$timeout=1,$retryInterval=15);
     public function findServer(string $key): string|bool;
 }

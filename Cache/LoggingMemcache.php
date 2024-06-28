@@ -388,16 +388,27 @@ class LoggingMemcache extends \MemcachePool implements MemcacheInterface, Loggin
         return $result;
     }
 
-    public function connect($host, $tcpPort = 11211, $timeout = 1)
+    /*
+     * MemcachePool::connect(
+     * $host, 
+     * $tcp_port = &lt;default&gt;, 
+     * $udp_port = &lt;default&gt;, 
+     * $persistent = &lt;default&gt;, 
+     * $weight = &lt;default&gt;, 
+     * $timeout = &lt;default&gt;, 
+     * $retry_interval = &lt;default&gt;)
+     */
+    
+    public function connect($host,$tcpPort=11211,$udpPort=0,$persistent=true,$weight=1,$timeout=1,$retryInterval=15)
     {
         if ($this->logging) {
             $start = microtime(true);
             $name = 'connect';
-            $arguments = [$host, $tcpPort, $timeout];
+            $arguments = array($host,$tcpPort,$udpPort,$persistent,$weight,$timeout,$retryInterval);
         }
-        [$_host, $_tcpPort, $_timeout] = [$host, $tcpPort, $timeout];
-        $result = parent::connect($_host, $_tcpPort, $_timeout);
-        [$host, $tcpPort, $timeout] = [$_host, $_tcpPort, $_timeout];
+        list($_host,$_tcpPort,$_udpPort,$_persistent,$_weight,$_timeout,$_retryInterval) = array($host,$tcpPort,$udpPort,$persistent,$weight,$timeout,$retryInterval);
+        $result = parent::connect($_host,$_tcpPort,$_udpPort,$_persistent,$_weight,$_timeout,$_retryInterval);
+        list($host,$tcpPort,$udpPort,$persistent,$weight,$timeout,$retryInterval) = array($_host,$_tcpPort,$_udpPort,$_persistent,$_weight,$_timeout,$_retryInterval);
         if ($this->logging) {
             $time = microtime(true) - $start;
             $this->calls[] = (object)compact('start', 'time', 'name', 'arguments', 'result');
