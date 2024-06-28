@@ -353,10 +353,8 @@ class LoggingMemcache extends \MemcachePool implements MemcacheInterface, Loggin
         $weight = 1,
         $timeout = 1,
         $retryInterval = 15,
-        $status = true,
-        callable $failure_callback = null,
-        $timeoutms = null
-    ) {
+        $status = true
+    ): bool {
         if ($this->logging) {
             $start = microtime(true);
             $name = 'addServer';
