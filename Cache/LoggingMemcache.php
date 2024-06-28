@@ -33,7 +33,7 @@ class LoggingMemcache extends \MemcachePool implements MemcacheInterface, Loggin
         return $result;
     }
 
-    public function setFailureCallback($failureCallback)
+    public function setFailureCallback($failureCallback): bool
     {
         if ($this->logging) {
             $start = microtime(true);

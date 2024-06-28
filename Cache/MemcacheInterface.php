@@ -2,7 +2,7 @@
 namespace Lsw\MemcacheBundle\Cache;
 
 interface MemcacheInterface {
-    public function setFailureCallback(?callable $failureCallback);
+    public function setFailureCallback(?callable $failureCallback): bool;
     public function getServerStatus(string $host, int $port=11211);
     public function getVersion();
     public function add(array|string $key,$var=null, int $flag=0, int $exptime=0, int $cas = 0);
