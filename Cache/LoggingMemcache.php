@@ -51,7 +51,7 @@ class LoggingMemcache extends \MemcachePool implements MemcacheInterface, Loggin
         return $result;
     }
 
-    public function getServerStatus($host, $port = 11211)
+    public function getServerStatus($host, $port = 11211): int|bool
     {
         if ($this->logging) {
             $start = microtime(true);
