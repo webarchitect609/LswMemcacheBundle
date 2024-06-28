@@ -2,7 +2,6 @@
 
 namespace Lsw\MemcacheBundle\Tests\Cache;
 
-
 use Lsw\MemcacheBundle\Cache\AntiDogPileMemcache;
 use PHPUnit\Framework\TestCase;
 
@@ -15,7 +14,7 @@ class AntiDogPileMemcacheTest extends TestCase
 {
     public function testConstructAndInterfaces()
     {
-        $cache = new AntiDogPileMemcache('foo',array());
+        $cache = new AntiDogPileMemcache(true, []);
 
         $this->assertInstanceOf('\Lsw\MemcacheBundle\Cache\LoggingMemcache', $cache);
     }

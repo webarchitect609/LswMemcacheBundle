@@ -9,8 +9,7 @@ interface LoggingMemcacheInterface
     /**
      * Get the logged calls for this Memcache object
      *
-     * @return array Array of calls made to the Memcache object
+     * @return array<int, object> Array of calls made to the Memcache object
      */
-    public function getLoggedCalls();
-
+    public function getLoggedCalls(): array;
 }

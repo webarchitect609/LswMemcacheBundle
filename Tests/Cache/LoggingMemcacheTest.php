@@ -2,7 +2,6 @@
 
 namespace Lsw\MemcacheBundle\Tests\Cache;
 
-
 use Lsw\MemcacheBundle\Cache\LoggingMemcache;
 use PHPUnit\Framework\TestCase;
 
@@ -15,7 +14,7 @@ class LoggingMemcacheTest extends TestCase
 {
     public function testConstructAndInterfaces()
     {
-        $cache = new LoggingMemcache('foo',array());
+        $cache = new LoggingMemcache(true, []);
 
         $this->assertInstanceOf('\MemcachePool', $cache);
         $this->assertInstanceOf('\Lsw\MemcacheBundle\Cache\MemcacheInterface', $cache);
@@ -26,11 +25,11 @@ class LoggingMemcacheTest extends TestCase
     {
         $resource = fsockopen('127.0.0.1', 11211, $errno, $errstr, 0.1);
         self::assertIsResource($resource);
-    } 
-	
-	public function testGet()
+    }
+
+    public function testGet()
     {
-    	$m = new LoggingMemcache(false,array());
+        $m = new LoggingMemcache(false, []);
         $m->addServer('localhost', 11211);
         $m->set('key', 'value');
         $value = $m->get('key');
