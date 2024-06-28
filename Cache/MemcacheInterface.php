@@ -5,7 +5,7 @@ interface MemcacheInterface {
     public function setFailureCallback(?callable $failureCallback): bool;
     public function getServerStatus(string $host, int $port=11211): int|bool;
     public function getVersion(): string|bool;
-    public function add(array|string $key,$var=null, int $flag=0, int $exptime=0, int $cas = 0);
+    public function add(array|string $key,$var=null, int $flag=0, int $exptime=0, int $cas = 0): bool;
     public function set(array|string $key,$var=null, int $flag=0, int$exptime=0, int $cas = 0);
     public function replace(array|string $key,$var=null, int $flag=0, int $exptime=0, int $cas = 0);
     public function cas(array|string $key,$var=null, int $flag=0, int $exptime=0, int $cas=0);

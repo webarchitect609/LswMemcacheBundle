@@ -86,7 +86,7 @@ class LoggingMemcache extends \MemcachePool implements MemcacheInterface, Loggin
         return $result;
     }
 
-    public function add($key, $var = null, $flag = 0, $exptime = 0)
+    public function add($key, $var = null, $flag = 0, $exptime = 0, int $cas = 0): bool
     {
         if ($this->logging) {
             $start = microtime(true);
