@@ -69,7 +69,7 @@ class LoggingMemcache extends \MemcachePool implements MemcacheInterface, Loggin
         return $result;
     }
 
-    public function getVersion()
+    public function getVersion(): string|bool
     {
         if ($this->logging) {
             $start = microtime(true);
